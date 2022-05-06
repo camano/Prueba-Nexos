@@ -15,15 +15,16 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/mercancia")
+@CrossOrigin(origins = "*")
 public class MercanciaController {
     @Autowired
     private MercanciaService mercanciaService;
 
     @GetMapping()
-    public ResponseEntity<?> listarMercancias(@RequestParam String nombreProducto) {
+    public ResponseEntity<?> listarMercancias(@RequestParam String nombreProducto,@RequestParam String nombreUsuario) {
         String nombreFiltro = "".concat("%").concat(nombreProducto).concat("%");
-        System.out.println("nombreFiltro = " + nombreFiltro);
-        return new ResponseEntity<>(mercanciaService.listarMercancia(nombreFiltro), HttpStatus.OK);
+        String fecha = "".concat("%").concat(nombreUsuario).concat("%");
+        return new ResponseEntity<>(mercanciaService.listarMercancia(nombreFiltro,fecha), HttpStatus.OK);
     }
 
     @PostMapping("/addMercancia")

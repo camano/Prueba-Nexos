@@ -8,16 +8,16 @@ public class UsuarioDto {
     private Long edad;
     private LocalDate fechaIngreso;
 
-    private Integer idCargo;
+    private CargoDto cargo;
 
     public UsuarioDto() {
     }
 
-    public UsuarioDto(String nombre, Long edad, LocalDate fechaIngreso, Integer idCargo) {
+    public UsuarioDto(String nombre, Long edad, LocalDate fechaIngreso, CargoDto cargo) {
         this.nombre = nombre;
         this.edad = edad;
         this.fechaIngreso = fechaIngreso;
-        this.idCargo = idCargo;
+        this.cargo = cargo;
     }
 
     public Integer getIdUsuario() {
@@ -52,16 +52,16 @@ public class UsuarioDto {
         this.fechaIngreso = fechaIngreso;
     }
 
-    public Integer getIdCargo() {
-        return idCargo;
+    public CargoDto getCargo() {
+        return cargo;
     }
 
-    public void setIdCargo(Integer idCargo) {
-        this.idCargo = idCargo;
+    public void setCargo(CargoDto cargo) {
+        this.cargo = cargo;
     }
 
     @Override
     public String toString() {
-        return "UsuarioDto{" + "idUsuario=" + idUsuario + ", nombre='" + nombre + '\'' + ", edad=" + edad + ", fechaIngreso=" + fechaIngreso + ", idCargo=" + idCargo + '}';
+        return "UsuarioDto{" + "idUsuario=" + idUsuario + ", nombre='" + nombre + '\'' + ", edad=" + edad + ", fechaIngreso=" + fechaIngreso + ", cargo=" + cargo + '}';
     }
 }

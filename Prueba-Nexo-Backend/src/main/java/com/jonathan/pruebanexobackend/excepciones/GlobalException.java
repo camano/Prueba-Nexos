@@ -22,14 +22,14 @@ public class GlobalException extends ResponseEntityExceptionHandler {
 
         MensajeDto mensajeDto = new MensajeDto(mercanciaException.getMensaje());
 
-        return new ResponseEntity<>(mensajeDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(mensajeDto, HttpStatus.OK);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<MensajeDto> manejarGlobalException(Exception exception, WebRequest webRequest) {
 
         MensajeDto mensajeDto = new MensajeDto(exception.getMessage());
-        return new ResponseEntity<>(mensajeDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(mensajeDto, HttpStatus.BAD_REQUEST);
     }
 
     @Override

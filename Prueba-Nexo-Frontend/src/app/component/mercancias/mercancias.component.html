@@ -1,0 +1,104 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="col">
+        <button
+          [routerLink]="['/usuario/mercancia/addMercancia', usuario?.idUsuario]"
+          class="btn btn-success"
+        >
+          Agregar
+        </button>
+      </div>
+      <div class="col">
+        <div>
+          <label for="">Usuario : {{ usuario?.nombre }} </label>
+        </div>
+        <div>
+          <label for="">Cargo : {{ usuario?.cargo?.nombre }} </label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-6">
+      <form class="d-flex" (submit)="filtros()">
+        <div class="row">
+          <div class="col">
+            <input
+              type="text"
+              [(ngModel)]="nombreUsuario"
+              name="nombreUsuario"
+              class="form-control"
+              placeholder="Nombre Usuario"
+              aria-label="Last name"
+            />
+          </div>
+          <div class="col">
+            <input
+              class="form-control me-2"
+              type="text"
+              placeholder="Nombre Producto"
+              aria-label="Search"
+              [(ngModel)]="nombreProducto"
+              name="nombreProducto"
+            />
+          </div>
+        </div>
+        
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">NOMBRE_PRODUCTO</th>
+        <th scope="col">CANTIDAD</th>
+        <th scope="col">FECHA_INGRESO</th>
+        <th scope="col">USUARIO</th>
+        <th scope="col">CARGO</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mercancia of mercancias">
+        <td>
+          {{ mercancia.idMercancia }}
+        </td>
+        <td>
+          {{ mercancia.nombreProducto }}
+        </td>
+        <td>
+          {{ mercancia.cantidad }}
+        </td>
+        <td>
+          {{ mercancia.fechaIngreso }}
+        </td>
+        <td>
+          {{ mercancia.usuario?.nombre }}
+        </td>
+        <td>
+          {{ mercancia.usuario?.cargo?.nombre }}
+        </td>
+        <td>
+          <a
+            href="usuario/mercancia/detalleMercancia/{{
+              mercancia.idMercancia
+            }}/{{ usuario?.idUsuario }}"
+            class="btn btn-warning"
+            >Editar</a
+          >
+          <button
+            (click)="
+              eliminarMercancia(mercancia.idMercancia, usuario?.idUsuario)
+            "
+            class="btn btn-danger"
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

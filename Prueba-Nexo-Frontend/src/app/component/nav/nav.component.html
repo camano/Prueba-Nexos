@@ -1,0 +1,21 @@
+<ul class="nav justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">INICIO</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a
+      class="nav-link dropdown-toggle"
+      data-bs-toggle="dropdown"
+      href="#"
+      role="button"
+      aria-expanded="false"
+      >USUARIOS</a
+    >
+    <ul class="dropdown-menu">
+      <li *ngFor="let usuario of listarUsuario">
+        <a class="dropdown-item"    [routerLink]="['/usuario/mercancia/',usuario.idUsuario]">{{usuario.nombre}}</a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>

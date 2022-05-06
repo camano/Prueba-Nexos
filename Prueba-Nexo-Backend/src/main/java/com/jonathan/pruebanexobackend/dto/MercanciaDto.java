@@ -1,6 +1,5 @@
 package com.jonathan.pruebanexobackend.dto;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 public class MercanciaDto {

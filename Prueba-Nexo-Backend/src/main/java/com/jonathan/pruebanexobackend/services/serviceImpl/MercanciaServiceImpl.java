@@ -9,6 +9,7 @@ import com.jonathan.pruebanexobackend.repository.MercanciaRepository;
 import com.jonathan.pruebanexobackend.repository.UsuarioRepository;
 import com.jonathan.pruebanexobackend.services.MercanciaService;
 import com.jonathan.pruebanexobackend.utils.MapearDto;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -16,10 +17,16 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class MercanciaServiceImpl implements MercanciaService {
+
+    private final static Logger logger = LoggerFactory.getLogger(MercanciaServiceImpl.class);
     @Autowired
     private MercanciaRepository mercanciaRepository;
 
@@ -30,12 +37,13 @@ public class MercanciaServiceImpl implements MercanciaService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public List<MercanciaDto> listarMercancia(String nombreProducto) {
-        List<Mercancia> mercanciaList = mercanciaRepository.listarMercanciaFiltro(nombreProducto);
+    public List<MercanciaDto> listarMercancia(String nombreProducto,String nombreUsuario) {
+        List<Mercancia> mercanciaList = mercanciaRepository.listarMercanciaFiltro(nombreProducto,nombreUsuario);
         return mercanciaList.stream()
                 .map(mercancia -> mapearDto.mapearEntidadToDoMercanciaUsuario(mercancia))
                 .collect(Collectors.toList());
     }
+
 
     @Override
     public MercanciaDto getMercancia(int id) {
@@ -52,6 +60,7 @@ public class MercanciaServiceImpl implements MercanciaService {
     @Override
     public MercanciaDto addMercancia(AgregarMercanciaDto agregarMercanciaDto) {
         try {
+            logger.info("Datos enviados :: " + agregarMercanciaDto);
             if (mercanciaRepository.existsByNombreProducto(agregarMercanciaDto.getNombreProducto())) {
                 throw new MercanciaException(HttpStatus.BAD_REQUEST, "El nombre del producto ya se encuentra usado, use otro");
             }
@@ -59,7 +68,8 @@ public class MercanciaServiceImpl implements MercanciaService {
                 throw new MercanciaException(HttpStatus.BAD_REQUEST, "El usuario No se encuentra registrado en el sistema");
             });
             int fecha = agregarMercanciaDto.getFechaIngreso().compareTo(LocalDate.now());
-            if (fecha == 1) {
+
+            if (fecha  > 0) {
                 throw new MercanciaException(HttpStatus.BAD_REQUEST, "La fecha de ingreso debe ser menor o igual a la fecha actual.");
             }
             Mercancia mercancia = mapearDto.mapearDtoToEntidadMercancia(agregarMercanciaDto);
@@ -77,16 +87,17 @@ public class MercanciaServiceImpl implements MercanciaService {
     @Override
     public MercanciaDto updateMercancia(AgregarMercanciaDto agregarMercanciaDto, int id) {
         try {
+            logger.info("Datos enviados :: " + agregarMercanciaDto);
             Mercancia mercancia = mercanciaRepository.findById(id).orElseThrow(() -> {
                 throw new MercanciaException(HttpStatus.BAD_REQUEST, "No se encuentro la mercancia");
             });
-            if (mercanciaRepository.existsByNombreProducto(agregarMercanciaDto.getNombreProducto())) {
-                throw new MercanciaException(HttpStatus.BAD_REQUEST, "El nombre del producto ya se encuentra usado, use otro");
-            }
             Usuario usuario = usuarioRepository.findById(agregarMercanciaDto.getUsuario()).orElseThrow(() -> {
                 throw new MercanciaException(HttpStatus.BAD_REQUEST, "El usuario No se encuentra registrado en el sistema");
             });
-
+            int fecha = agregarMercanciaDto.getFechaIngreso().compareTo(LocalDate.now());
+            if (fecha == 1) {
+                throw new MercanciaException(HttpStatus.BAD_REQUEST, "La fecha de ingreso debe ser menor o igual a la fecha actual.");
+            }
             mercancia.setCantidad(agregarMercanciaDto.getCantidad());
             mercancia.setFechaIngreso(agregarMercanciaDto.getFechaIngreso());
             mercancia.setNombreProducto(agregarMercanciaDto.getNombreProducto());

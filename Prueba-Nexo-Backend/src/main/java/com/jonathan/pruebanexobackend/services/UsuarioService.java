@@ -7,4 +7,6 @@ import java.util.List;
 public interface UsuarioService {
 
     List<UsuarioDto>listarUsuario();
+
+    UsuarioDto getUSuario(int id);
 }

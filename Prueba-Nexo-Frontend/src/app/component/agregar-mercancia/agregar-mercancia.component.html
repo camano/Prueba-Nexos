@@ -1,0 +1,42 @@
+<div class="container d-flex justify-content-center">
+    <div class="card">
+        <div class="card-header">
+            <h3>Agregar Mercancia nueva</h3>
+        </div>
+        <div class="card-body">
+            <form (ngSubmit)="addMercancia()">
+                <div class="form-group">
+                    <label for="descripcion">Nombre Producto</label>
+                    <input type="text"   class="form-control" [(ngModel)]="nuevaMercancia.nombreProducto" name="nombreProducto" id="nombreProducto" required>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Cantidad</label>
+                    <input type="number" class="form-control" [(ngModel)]="nuevaMercancia.cantidad"  name="cantidad" id="cantidad" required>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Fecha de Ingrenso </label>
+                    <input type="date"  class="form-control" [(ngModel)]="nuevaMercancia.fechaIngreso"  name="fechaIngreso" id="fechaIngreso" >
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <button class="btn btn-outline-success btn-block" type="submit">
+                                <i class="fas fa-sign-in-alt"></i> Agregar </button>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <button routerLink="/" class="btn btn-outline-success btn-block"  type="submit">
+                                <i class="fas fa-sign-in-alt"></i> Regresar</button>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                
+            </form>
+        </div>
+    </div>    
+</div>

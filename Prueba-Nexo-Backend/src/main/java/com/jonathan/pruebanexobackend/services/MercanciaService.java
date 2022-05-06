@@ -1,14 +1,14 @@
 package com.jonathan.pruebanexobackend.services;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import com.jonathan.pruebanexobackend.dto.AgregarMercanciaDto;
 import com.jonathan.pruebanexobackend.dto.MercanciaDto;
-import com.jonathan.pruebanexobackend.entity.Mercancia;
-
-import java.util.List;
 
 public interface MercanciaService {
 
-    List<MercanciaDto> listarMercancia(String nombreProducto);
+    List<MercanciaDto> listarMercancia(String nombreProducto, String fecha);
 
     MercanciaDto getMercancia(int id);
 
