@@ -12,6 +12,7 @@ import com.jonathan.pruebanexobackend.utils.MapearDto;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -38,9 +39,20 @@ public class MercanciaServiceImpl implements MercanciaService {
 
     @Override
     public List<MercanciaDto> listarMercancia(String nombreProducto,String nombreUsuario) {
+        /*Sort sort= Sort.by("idMercancia").descending();
+        List<Mercancia> mercanciaList = mercanciaRepository.findAll(sort);*/
         List<Mercancia> mercanciaList = mercanciaRepository.listarMercanciaFiltro(nombreProducto,nombreUsuario);
         return mercanciaList.stream()
                 .map(mercancia -> mapearDto.mapearEntidadToDoMercanciaUsuario(mercancia))
+                /*.flatMap(mercanciaDto -> {
+                    if(nombreProducto.equalsIgnoreCase("") && nombreUsuario.equalsIgnoreCase("")){
+                        return Stream.of(mercanciaDto);
+                    }
+                    if (mercanciaDto.getNombreProducto().equalsIgnoreCase(nombreProducto) || mercanciaDto.getUsuario().getNombre().equalsIgnoreCase(nombreUsuario)){
+                        return Stream.of(mercanciaDto);
+                    }
+                    return Stream.empty();
+                })*/
                 .collect(Collectors.toList());
     }
 
