@@ -23,4 +23,9 @@ public class UsuarioController {
     public ResponseEntity<?>getUsuario(@PathVariable("idUsuario") int id){
         return  new ResponseEntity<>(usuarioService.getUSuario(id),HttpStatus.OK);
     }
+
+    @GetMapping("/mensaje")
+    public String mensaje(){
+        return  "Hola mensaje de prueba mejorado okok";
+    }
 }
