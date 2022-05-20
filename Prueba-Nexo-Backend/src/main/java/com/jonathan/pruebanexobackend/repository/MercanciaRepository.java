@@ -1,6 +1,5 @@
 package com.jonathan.pruebanexobackend.repository;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 

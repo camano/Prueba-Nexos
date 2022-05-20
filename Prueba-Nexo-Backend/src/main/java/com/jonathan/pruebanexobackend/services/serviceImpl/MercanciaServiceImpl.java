@@ -12,17 +12,16 @@ import com.jonathan.pruebanexobackend.utils.MapearDto;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 @Service
 public class MercanciaServiceImpl implements MercanciaService {
